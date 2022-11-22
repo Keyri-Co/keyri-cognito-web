@@ -49,10 +49,10 @@ const Content = () => {
 
   return (
     <div className="hero my-5 text-center">
-      <h1 className="mb-4">Auth0 + Keyri Sample Project</h1>
+      <h1 className="mb-4">Cognito + Keyri Sample Project</h1>
       {!authenticated && (
         <div>
-          <p className="lead">Log in by scanning the QR code below with the example Keyri-Auth0 mobile app.</p>
+          <p className="lead">Log in by scanning the QR code below with the example Keyri-Cognito mobile app.</p>
           <iframe
             src="./KeyriQR.html"
             id="qr - frame"
