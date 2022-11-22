@@ -4,33 +4,15 @@ const Content = () => {
   const [authenticated, setAuthenticated] = useState(false);
   const [userId, setUserId] = useState('');
 
-  const handleQrLogin = async refresh_token => {
-    try {
-      const res = await fetch('https://keyri.us.auth0.com/oauth/token', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-          grant_type: 'refresh_token',
-          client_id: 'K4RWxNFhsHU7xDTxVqGzW9x2JWlf5ily',
-          client_secret: '7RlMb6UVQrThv6bhnhi-ZlYPKH5to8UPstuMmCrefBsSCgnMwe2O_iDUxLX5gEIg',
-          refresh_token: refresh_token
-        })
-      });
-      const data = await res.json();
+  const handleQrLogin = async payload => {
+    const jwt = payload.idToken.split('.')[1];
+    const decodedJwt = JSON.parse(atob(jwt));
 
-      const jwt = data.id_token.split('.')[1];
-      const decodedJwt = JSON.parse(atob(jwt));
+    localStorage.setItem('idToken', payload.idToken);
+    localStorage.setItem('accessToken', payload.accessToken);
 
-      localStorage.setItem('id_token', decodedJwt.id_token);
-      localStorage.setItem('access_token', decodedJwt.access_token);
-
-      setUserId(decodedJwt.sub);
-      setAuthenticated(true);
-    } catch (error) {
-      console.log(error);
-    }
+    setUserId(decodedJwt.username);
+    setAuthenticated(true);
   };
 
   useEffect(() => {
@@ -38,12 +20,11 @@ const Content = () => {
       if (evt.data.keyri && evt.data.data && document.location.origin == evt.origin) {
         const { data } = evt;
         if (!data.error) {
-          console.log('data', data);
-          let refresh_token = JSON.parse(data.data).refresh_token;
-          await handleQrLogin(refresh_token);
-        } else if (data.error) {
-          console.log(`Keyri error: ${data.message}`);
+          let payload = data.data;
+          await handleQrLogin(payload);
         }
+      } else if (data.error) {
+        console.log(`Keyri error: ${data.error}`);
       }
     });
   }, []);
@@ -53,7 +34,7 @@ const Content = () => {
       <h1 className="mb-4">Cognito + Keyri Sample Project</h1>
       {!authenticated && (
         <div>
-          <p className="lead">Log in by scanning the QR code below with the example Keyri-Cognito mobile app.</p>
+          <p className="lead">Log in by scanning the QR code below with the example Keyri-Cognito mobile app</p>
           <iframe
             src="./KeyriQR.html"
             id="qr - frame"
@@ -66,7 +47,7 @@ const Content = () => {
       )}
       {authenticated && (
         <div>
-          <p className="lead">Logged in! Your userId is {userId}</p>
+          <p className="lead">Logged in! Your username is {userId}</p>
         </div>
       )}
     </div>
