@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Keyri Auth0 QR Login Demonstration Web App
 
-## Getting Started
+This sample demonstrates the integration of [Keyri QR Login](https://docs.keyri.com/) with an Auth0 authentication system into a Next.js application created using [create-next-app](https://nextjs.org/docs/api-reference/create-next-app).
 
-First, run the development server:
+This sample demonstrates how Keyri QR login may be used in an application spanning a web and mobile component that utilizes Auth0 for authentication and user management.
+
+## Caveats
+
+- Certain functionality in this demo web application, namely the exchange of a refresh token for an access token and id token, are best executed server-side.
+- Authentication in this example is not persisted - if the user refreshes the page, they will be logged out. Persistence was not the goal of this application, but rather to demonstrate the integration of Keyri QR Login with Auth0. Persistence can be easily achieved in a manner of your choosing; this application illustrates how id tokens and access tokens can land in your web app, and you can decide how to persist them.
+
+## Project setup
+
+Use `npm` to install the project dependencies:
+
+```bash
+npm install
+```
+
+## Run the sample
+
+### Compile and hot-reload for development
+
+This compiles and serves the Next.js app and starts the API server on port 3000.
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Create a Free Keyri Account
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+1. Go to the [Keyri dashboard](https://app.keyri.com) and click **Sign Up**.
+2. Go through the email verification flow to finish creating your account.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## License
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT license. See the [LICENSE](./LICENSE) file for more info.
