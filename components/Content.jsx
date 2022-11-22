@@ -5,13 +5,7 @@ const Content = () => {
   const [userId, setUserId] = useState('');
 
   const handleQrLogin = async payload => {
-    const jwt = payload.idToken.split('.')[1];
-    const decodedJwt = JSON.parse(atob(jwt));
-
-    localStorage.setItem('idToken', payload.idToken);
-    localStorage.setItem('accessToken', payload.accessToken);
-
-    setUserId(decodedJwt.username);
+    setUserId(payload);
     setAuthenticated(true);
   };
 
